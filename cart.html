@@ -1,0 +1,33 @@
+<h1>Your Cart</h1>
+<table id="cart-table">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<button id="checkout-button">Proceed to Checkout</button>
+
+<script>
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartTable = document.getElementById('cart-table').getElementsByTagName('tbody')[0];
+
+    cart.forEach(item => {
+        const row = cartTable.insertRow();
+        row.innerHTML = `
+            <td>${item.name}</td>
+            <td>$${item.price}</td>
+            <td>${item.quantity}</td>
+            <td>$${(item.price * item.quantity).toFixed(2)}</td>
+        `;
+    });
+
+    document.getElementById('checkout-button').addEventListener('click', () => {
+        alert('Proceeding to checkout!');
+    });
+</script>
