@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // ==========================================================
 // script.js
 // Global Initialization, Countdown, and Form Validation
@@ -13,11 +14,18 @@ import { addItemToCart, updateCartIconCount } from './cart.js';
 // Black Friday Countdown Timer Logic
 const eventDate = new Date("2024-12-29T00:00:00").getTime(); 
 let countdownInterval; // Declared globally so updateCountdown can clear it.
+=======
+
+
+// Black Friday Countdown Timer
+const eventDate = new Date("2024-12-29T00:00:00").getTime();
+>>>>>>> origin/master
 
 function updateCountdown() {
     const now = new Date().getTime();
     const distance = eventDate - now;
 
+<<<<<<< HEAD
     const countdownElement = document.getElementById('countdown');
     if (!countdownElement) {
         clearInterval(countdownInterval); // Stop if element is missing
@@ -39,24 +47,83 @@ function updateCountdown() {
 }
 // Removed the global setInterval call here! It is now inside DOMContentLoaded.
 
+=======
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    const countdownElement = document.getElementById('countdown');
+
+    
+
+    document.getElementById('countdown').textContent = `Black Friday Sale: Time left - ${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+    if (distance < 0) {
+        clearInterval(countdownInterval);
+        document.getElementById('countdown').textContent = "Black Friday Sale is Live!";
+    }
+}
+const countdownInterval = setInterval(updateCountdown, 1000);
+
+// Form Validation
+function validateForm() {
+    const nameField = document.querySelector('input[placeholder="Enter your name"]');
+    const emailField = document.querySelector('input[placeholder="Enter your email"]');
+    const messageField = document.querySelector('textarea[placeholder="Write your message"]');
+
+    const name = nameField ? nameField.value.trim() : "";
+    const email = emailField ? emailField.value.trim() : "";
+    const message = messageField ? messageField.value.trim() : "";
+
+    if (!name) {
+        alert("Name is required.");
+        return false;
+    }
+    if (!email || !email.includes("@")) {
+        alert("Please enter a valid email address.");
+        return false;
+    }
+    if (!message) {
+        alert("Message cannot be empty.");
+        return false;
+    }
+
+    alert("Form submitted successfully!");
+    return true;
+}
+>>>>>>> origin/master
 
 // Dynamically Attach Last Updated Time to Footer
 function addLastUpdated() {
     const footer = document.querySelector('footer');
+<<<<<<< HEAD
     if (!footer) return;
     
     const lastUpdated = document.createElement('p');
     const now = new Date();
 
+=======
+    const lastUpdated = document.createElement('p');
+    const now = new Date();
+
+    // Format the date and time
+>>>>>>> origin/master
     const formattedDate = now.toLocaleDateString();
     const formattedTime = now.toLocaleTimeString();
 
     lastUpdated.textContent = `Last Updated: ${formattedDate} at ${formattedTime}`;
+<<<<<<< HEAD
     lastUpdated.style.cssText = 'margin-top: 10px; font-size: 0.9rem;'; 
+=======
+    lastUpdated.style.marginTop = '10px';
+    lastUpdated.style.fontSize = '0.9rem';
+>>>>>>> origin/master
 
     footer.appendChild(lastUpdated);
 }
 
+<<<<<<< HEAD
 
 // --- TESTABLE BUSINESS LOGIC (Validation) ---
 
@@ -183,3 +250,17 @@ function attachProductListeners() {
     // 4. Update cart count on page load
     updateCartIconCount();
 });
+=======
+// Initialize all scripts after DOM loads
+document.addEventListener('DOMContentLoaded', () => {
+    // Attach form validation
+    const submitButton = document.querySelector('button[onclick="validateForm()"]');
+    if (submitButton) {
+        submitButton.addEventListener('click', validateForm);
+    }
+
+    // Add last updated time to footer
+    addLastUpdated();
+});
+
+>>>>>>> origin/master
